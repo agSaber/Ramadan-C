@@ -55,24 +55,43 @@
 
     .employee-name{
    
-  position:absolute;
+  /*position:absolute;
   left:50%;
   transform:translateX(-50%);
 
-  /* المكان الثابت */
-  top: 88%; /* عدّل النسبة حسب مكان الاسم في الصورة */
+ 
+  top: 88%; 
 
   color: var(--gold);
   font-weight:200;
 
- /* font-size: 10 px;*/
+ 
    font-size: clamp(3px, 1.4vw, 12px);
   text-align:center;
   white-space:nowrap;
 
   max-width:90%;
   overflow:hidden;
+  text-overflow:ellipsis;*/
+           position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:88%;
+
+  color: var(--gold);
+  font-weight:200;
+
+  font-size: clamp(7px, 0.9vw, 10px);
+
+  text-align:center;
+  white-space:nowrap;
+
+  max-width:90%;
+  overflow:hidden;
   text-overflow:ellipsis;
+
+  /* نوع الخط الجديد */
+  font-family: 'Amiri', serif; /* أو 'Cairo', sans-serif */
 }
 
     }
@@ -196,6 +215,7 @@
 
 </body>
 </html>
+
 
 
 
