@@ -53,31 +53,28 @@
       box-shadow: 0 14px 45px var(--shadow);
     }
 
+    /* الاسم */
     .employee-name{
-   
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      top:88%;
+      color: var(--gold);
+      font-weight:800;
+      font-family: "Cairo", sans-serif;
+      font-size: 3vw; /* حجم أصغر للموبايل */
+      text-align:center;
+      white-space:nowrap;
+      max-width:90%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
- 
-  top: 88%; 
-
-  color: var(--gold);
-  font-weight:200;
-
- 
-   font-size: clamp(3px, 1.4vw, 12px);
-  text-align:center;
-  white-space:nowrap;
-
-  max-width:90%;
-  overflow:hidden;
-  text-overflow:ellipsis;
-        
-}
-
-
-
+    /* على الشاشات الكبيرة */
+    @media (min-width:600px){
+      .employee-name{
+        font-size: 18px; /* حجم أصغر للشاشات الكبيرة */
+      }
     }
 
     .controls{
@@ -122,10 +119,10 @@
   <div class="wrap">
 
     <div class="card" id="card">
-      <!-- صورة i.ibb -->
       <img
         id="bg"
-       src="image (2).png"
+        src="image(2).png"
+        crossorigin="anonymous"
         alt="Ramadan Card"
       >
       <div class="employee-name" id="nameOnCard">اكتب اسمك</div>
@@ -145,25 +142,16 @@
     const img = document.getElementById("bg");
 
     input.addEventListener("input", () => {
-      nameOnCard.textContent = input.value.trim() || "اكتب اسمك";
-
-      // تصغير الخط لو الاسم طويل
-      if(input.value.length > 20){
-        nameOnCard.style.fontSize = "18px";
-      } else {
-        nameOnCard.style.fontSize = "22px";
-      }
+      const value = input.value.trim();
+      nameOnCard.textContent = value || "اكتب اسمك";
     });
 
     function clearName(){
       input.value = "";
       nameOnCard.textContent = "اكتب اسمك";
-      nameOnCard.style.fontSize = "22px";
     }
 
     async function downloadImage(){
-
-      // انتظر تحميل الصورة بالكامل
       if (!img.complete) {
         await new Promise((resolve, reject) => {
           img.onload = resolve;
@@ -199,21 +187,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
