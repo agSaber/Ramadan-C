@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>بطاقة تهنئة رمضان - RUMAAR</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+
+  <!-- html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root{
+      --gold:#f1c40f;
+      --shadow: rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+      font-family: "Cairo",sans-serif;
+      padding:20px;
+      color:#fff;
+    }
+
+    .wrap{
+      width:min(950px, 100%);
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+      align-items:center;
+    }
+
+    .card{
+      position:relative;
+      width:100%;
+      background:#000;
+    }
+
+    .card img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:16px;
+      box-shadow: 0 14px 45px var(--shadow);
+    }
+
+    .employee-name{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:22px;
+      padding:10px 14px;
+     
+     
+      color:var(--gold);
+      font-weight:800;
+      font-size:35px;
+      text-align:center;
+      white-space:nowrap;
+     
+     
+      max-width: calc(100% - 40px);
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .controls{
+      width:100%;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    input{
+      flex: 1 1 300px;
+      padding:12px;
+      border-radius:10px;
+      border:none;
+      font-size:16px;
+      outline:none;
+    }
+
+    button{
+      padding:12px 16px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .download-btn{
+      background:#f1c40f;
+      color:#000;
+    }
+
+    .clear-btn{
+      background:#444;
+      color:#fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="card" id="card">
+      <!-- صورة i.ibb -->
+      <img
+        id="bg"
+        src="https://i.ibb.co/XkFfrjYW/image.png"
+        crossorigin="anonymous"
+        alt="Ramadan Card"
+      >
+      <div class="employee-name" id="nameOnCard">اكتب اسمك</div>
+    </div>
+
+    <div class="controls">
+      <input id="nameInput" type="text" placeholder="اكتب اسمك هنا..." maxlength="40">
+      <button class="clear-btn" onclick="clearName()">مسح</button>
+      <button class="download-btn" onclick="downloadImage()">تحميل الصورة</button>
+    </div>
+
+  </div>
+
+  <script>
+    const input = document.getElementById("nameInput");
+    const nameOnCard = document.getElementById("nameOnCard");
+    const img = document.getElementById("bg");
+
+    input.addEventListener("input", () => {
+      nameOnCard.textContent = input.value.trim() || "اكتب اسمك";
+
+      // تصغير الخط لو الاسم طويل
+      if(input.value.length > 20){
+        nameOnCard.style.fontSize = "18px";
+      } else {
+        nameOnCard.style.fontSize = "22px";
+      }
+    });
+
+    function clearName(){
+      input.value = "";
+      nameOnCard.textContent = "اكتب اسمك";
+      nameOnCard.style.fontSize = "22px";
+    }
+
+    async function downloadImage(){
+
+      // انتظر تحميل الصورة بالكامل
+      if (!img.complete) {
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      }
+
+      html2canvas(document.getElementById("card"), {
+        scale: 3,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: null
+      }).then(canvas => {
+        const link = document.createElement("a");
+        const name = input.value.trim() || "RUMAAR";
+        link.download = name + "-Ramadan-Card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(err => {
+        console.error(err);
+        alert("لو الخلفية ظهرت سودة يبقى الاستضافة مانعة CORS، ساعتها لازم نرفع الصورة على نفس الدومين.");
+      });
+    }
+
+    // دعم الاسم عبر الرابط ?name=
+    const params = new URLSearchParams(window.location.search);
+    const preset = params.get("name");
+    if(preset){
+      input.value = preset;
+      nameOnCard.textContent = preset;
+    }
+  </script>
+
+</body>
+</html>
