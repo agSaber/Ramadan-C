@@ -54,23 +54,26 @@
     }
 
     .employee-name{
-      position:absolute;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:22px;
-      padding:10px 14px;
-     
-     
-      color:var(--gold);
-      font-weight:800;
-      font-size:35px;
-      text-align:center;
-      white-space:nowrap;
-     
-     
-      max-width: calc(100% - 40px);
-      overflow:hidden;
-      text-overflow:ellipsis;
+   
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+
+  /* المكان الثابت */
+  top: 88%; /* عدّل النسبة حسب مكان الاسم في الصورة */
+
+  color: var(--gold);
+  font-weight:800;
+
+  font-size: clamp(14px, 2.5vw, 22px);
+  text-align:center;
+  white-space:nowrap;
+
+  max-width:90%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
     }
 
     .controls{
@@ -192,6 +195,7 @@
 
 </body>
 </html>
+
 
 
 
